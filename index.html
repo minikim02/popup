@@ -6,17 +6,57 @@
 
   <style>
     body {
-      text-align: center;
-      font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-      line-height: 1.8;
       margin: 0;
       padding: 40px 20px;
       min-height: 100vh;
       overflow-x: hidden;
+      text-align: center;
+      font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      line-height: 1.8;
       background: linear-gradient(180deg, #ffe0ec, #ffc1d9, #ff9ecb);
     }
 
-    h1 { margin-top: 20px; }
+    /* Layout */
+    #page {
+      display: flex;
+      justify-content: center;
+    }
+
+    #content {
+      max-width: 720px;
+      width: 100%;
+      z-index: 2;
+    }
+
+    /* Side images */
+    .side-image {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 180px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      opacity: 0;
+      animation: fadeIn 2.5s ease forwards;
+    }
+
+    .side-left {
+      left: 20px;
+      animation-delay: 0.5s;
+    }
+
+    .side-right {
+      right: 20px;
+      animation-delay: 1s;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 0.95; }
+    }
+
+    @media (max-width: 900px) {
+      .side-image { display: none; }
+    }
 
     /* Buttons */
     .btn {
@@ -35,32 +75,10 @@
     .no { background: #777; }
     .no:hover { background: #5f5f5f; }
 
-    /* Keep both buttons together initially */
     #buttonsRow {
       display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin: 10px 0 20px;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* YES stays normal */
-    #yesBtn {
-      position: relative;
-      z-index: 10;
-    }
-
-    /* NO starts normal (next to YES), then becomes fixed after first click */
-    #noBtn {
-      position: relative; /* initial state */
-      z-index: 10;
-    }
-
-    iframe {
-      margin-top: 30px;
-      border-radius: 14px;
+      gap: 12px;
+      margin: 20px 0;
     }
 
     /* Floating hearts */
@@ -69,7 +87,7 @@
       to { transform: translateY(-110vh); opacity: 0; }
     }
 
-    /* Big YES message moving left -> right */
+    /* Big YES message */
     #yesMessage {
       position: fixed;
       top: 18%;
@@ -81,83 +99,99 @@
       text-shadow: 0 4px 12px rgba(255, 47, 109, 0.25);
       z-index: 9998;
       pointer-events: none;
-      opacity: 0;
       white-space: nowrap;
+      opacity: 0;
     }
 
     @keyframes slideLeftToRight {
-      0%   { left: -120%; opacity: 0; }
-      10%  { opacity: 1; }
+      0% { left: -120%; opacity: 0; }
+      10% { opacity: 1; }
       100% { left: 120%; opacity: 1; }
     }
 
     .showAndMove {
-      opacity: 1;
       animation: slideLeftToRight 10s linear forwards;
+    }
+
+    iframe {
+      margin-top: 30px;
+      border-radius: 14px;
     }
   </style>
 </head>
 
 <body>
 
+<!-- Side images -->
+<img src="left.jpg" class="side-image side-left" alt="Left photo">
+<img src="right.jpg" class="side-image side-right" alt="Right photo">
+
+<div id="page">
+<div id="content">
+
 <h1>발렌타인 초대장 - ❤️한민지❤️</h1>
 
 <p id="countdown"></p>
 
 <script>
-  const target = new Date("2026-02-14T00:00:00");
-  setInterval(() => {
-    const now = new Date();
-    const diff = target - now;
-    const el = document.getElementById("countdown");
+const target = new Date("2026-02-14T00:00:00");
+setInterval(() => {
+  const now = new Date();
+  const diff = target - now;
+  const el = document.getElementById("countdown");
 
-    if (diff <= 0) {
-      el.innerText = "❤️ 오늘은 발렌타인 데이 ❤️";
-      return;
-    }
+  if (diff <= 0) {
+    el.innerText = "❤️ 오늘은 발렌타인 데이 ❤️";
+    return;
+  }
 
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    el.innerText = `발렌타인 데이까지 ${days}일 ❤️`;
-  }, 1000);
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  el.innerText = `발렌타인 데이까지 ${days}일 ❤️`;
+}, 1000);
 </script>
 
 <p>안녕하세요 민지님!</p>
 
 <p>
-  2월 14일은 무슨 날인지 혹시 아세요??<br>
-  발렌타인 데이라는 아주 낭만이 넘치는 날이예요!<br>
+2월 14일은 무슨 날인지 혹시 아세요??<br>
+발렌타인 데이라는 아주 낭만이 넘치는 날이예요!
 </p>
 
 <p>
-  많은 서구 문화에서는 발렌타인 데이는<br>
-  사랑하는 사람에게 마음을 전하고 얼마나 소중한 사람인지를 말해주는 날이예요. <br>
-  근데 좀 낭만 넘치게 할려면 그 소중한 사람한테 초대장을 보내죠... 자신의 발렌타인이 되어줄 수 있는지.<br>
-  보통 손편지나 직접 만나서 물어보는데 제가 해외에 있어서 이렇게 하게 되네요...<br>
-  좀 더 낭만있게 못 해드려서 아쉽지만 그래도 어떻게든 뭐라도 하고 싶어요!<br>
+많은 서구 문화에서는 발렌타인 데이는<br>
+사랑하는 사람에게 마음을 전하고 얼마나 소중한 사람인지를 말해주는 날이예요.<br>
+근데 좀 낭만 넘치게 할려면 그 소중한 사람한테 초대장을 보내죠... 자신의 발렌타인이 되어줄 수 있는지.<br>
+보통 손편지나 직접 만나서 물어보는데 제가 해외에 있어서 이렇게 하게 되네요...<br>
+좀 더 낭만있게 못 해드려서 아쉽지만 그래도 어떻게든 뭐라도 하고 싶어요!
 </p>
 
 <p>
-  민지님! 해 주고 싶은 말들이 정말 많아요. 근데 대부분은 말로 표현할 수가 없어요. <br>
-  컬컴에서 민지님 처음 봤을때부터 같이 지내왔던 모든 날들과 지금 이 순간 까지 저는 민지님한테 <br>
-  설명할 수 없는 감정과 끌림을 느껴요. 정말 제 눈에는 민지님이 세상에서 제일 예쁘고, 귀엽고, 섹시하고, 사랑스럽고, 착하고, 너무나도 귀해요.<br>
-  저는 항상 감사해요... 이런 여자가 저를 사랑하다고 해주고, 얼굴 보러 지구 반대쪽 까지 날라오고, 전화하겠다고 몇주 동안 밤낮이 뒤바뀌고, 이쁘다고 해주고,<br>
-  항상 같이 있을거라고 말해주고, 응원해주고. 저는 민지님 덕분에 감사할 일들이 너무 많이 생겼어요. 잘 해줘서 고마워요... 근데 너무 자주 이렇게 잘 해주는 모습을<br>
-  잊어서 미안해요... 가끔 민지님의 입장을 이해 못 해주고 생각을 안해서 미안해요... 제가 더 노력하고 더 잘할게요...<br>
+민지님! 해 주고 싶은 말들이 정말 많아요. 근데 대부분은 말로 표현할 수가 없어요.<br>
+컬컴에서 민지님 처음 봤을때부터 같이 지내왔던 모든 날들과 지금 이 순간 까지 저는 민지님한테<br>
+설명할 수 없는 감정과 끌림을 느껴요. 정말 제 눈에는 민지님이 세상에서 제일 예쁘고, 귀엽고, 섹시하고,
+사랑스럽고, 착하고, 너무나도 귀해요.<br>
+저는 항상 감사해요... 이런 여자가 저를 사랑하다고 해주고, 얼굴 보러 지구 반대쪽 까지 날라오고,
+전화하겠다고 몇주 동안 밤낮이 뒤바뀌고, 이쁘다고 해주고,<br>
+항상 같이 있을거라고 말해주고, 응원해주고.
+저는 민지님 덕분에 감사할 일들이 너무 많이 생겼어요.
+잘 해줘서 고마워요... 근데 너무 자주 이렇게 잘 해주는 모습을 잊어서 미안해요...<br>
+가끔 민지님의 입장을 이해 못 해주고 생각을 안해서 미안해요...
+제가 더 노력하고 더 잘할게요...
 </p>
 
 <p>
-  저는 여러 면에서 많이 부족해요... 이런 저를 사랑해줘서 고마워요.<br>
-  저는 항상 민지님의 편이예요. <br>
-  항상 응원하고<br>
-  항상 감사하고<br>
-  영원히 사랑해요.<br>
+저는 여러 면에서 많이 부족해요... 이런 저를 사랑해줘서 고마워요.<br>
+저는 항상 민지님의 편이예요.<br>
+항상 응원하고<br>
+항상 감사하고<br>
+영원히 사랑해요.
 </p>
 
 <p>
-  그래서 민지야...<br>
-  내가 가장 소중하게 생각하고 사랑하는 너에게<br>
-  조심스럽게 묻고 싶어.<br><br>
-  <b>나의 발렌타인이 되어 줄래???</b>
+그래서 민지야...<br>
+내가 가장 소중하게 생각하고 사랑하는 너에게<br>
+조심스럽게 묻고 싶어.<br><br>
+<b>나의 발렌타인이 되어 줄래???</b>
 </p>
 
 <div id="buttonsRow">
@@ -165,110 +199,85 @@
   <button class="btn no" id="noBtn" onclick="moveNo()">NO 🙃</button>
 </div>
 
-<!-- Big moving text after YES -->
 <div id="yesMessage">❤️ 민지야 사랑해 ❤️</div>
 
-<!-- 🎶 Hidden YouTube music -->
+</div>
+</div>
+
 <iframe id="music" width="0" height="0" src="" allow="autoplay"></iframe>
 
 <script>
-  let yesPressed = false;
-  let musicStarted = false;
-  let noHasStartedRunning = false;
+let yesPressed = false;
+let musicStarted = false;
+let noRunning = false;
 
-  function sayYes() {
-    if (yesPressed) return;
-    yesPressed = true;
+function sayYes() {
+  if (yesPressed) return;
+  yesPressed = true;
 
-    // Show moving big text (no popup)
-    const msg = document.getElementById("yesMessage");
-    msg.classList.remove("showAndMove"); // reset if needed
-    void msg.offsetWidth; // force reflow to restart animation
-    msg.classList.add("showAndMove");
+  const msg = document.getElementById("yesMessage");
+  msg.classList.remove("showAndMove");
+  void msg.offsetWidth;
+  msg.classList.add("showAndMove");
 
-    // Start YouTube music at 1:43, looped
-    if (!musicStarted) {
-      document.getElementById("music").src =
-        "https://www.youtube.com/embed/Ep0D0LtHcAs?autoplay=1&start=103&loop=1&playlist=Ep0D0LtHcAs";
-      musicStarted = true;
-    }
-
-    // Disable NO after YES
-    const noBtn = document.getElementById("noBtn");
-    noBtn.disabled = true;
-    noBtn.style.opacity = "0.5";
-    noBtn.style.cursor = "default";
+  if (!musicStarted) {
+    document.getElementById("music").src =
+      "https://www.youtube.com/embed/Ep0D0LtHcAs?autoplay=1&start=103&loop=1&playlist=Ep0D0LtHcAs";
+    musicStarted = true;
   }
 
-  function moveNo() {
-    if (yesPressed) return;
+  document.getElementById("noBtn").disabled = true;
+  document.getElementById("noBtn").style.opacity = "0.5";
+}
 
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
+function moveNo() {
+  if (yesPressed) return;
 
-    // After first click, NO becomes fixed and starts running around
-    if (!noHasStartedRunning) {
-      noHasStartedRunning = true;
-      noBtn.style.position = "fixed";
-      noBtn.style.zIndex = "9999";
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
 
-      // Put it near where it currently is (smooth transition)
-      const rect = noBtn.getBoundingClientRect();
-      noBtn.style.left = rect.left + "px";
-      noBtn.style.top = rect.top + "px";
-      noBtn.style.transform = "none";
-    }
-
-    const yesRect = yesBtn.getBoundingClientRect();
-    const padding = 40;
-
-    let x, y, safe = false;
-    let attempts = 0;
-
-    while (!safe && attempts < 200) {
-      attempts++;
-
-      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-      x = Math.random() * Math.max(1, maxX) + padding / 2;
-      y = Math.random() * Math.max(1, maxY) + padding / 2;
-
-      const noRect = {
-        left: x,
-        right: x + noBtn.offsetWidth,
-        top: y,
-        bottom: y + noBtn.offsetHeight
-      };
-
-      // "Safe" means it does NOT overlap the YES area (with padding)
-      safe =
-        noRect.right < yesRect.left - padding ||
-        noRect.left > yesRect.right + padding ||
-        noRect.bottom < yesRect.top - padding ||
-        noRect.top > yesRect.bottom + padding;
-    }
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-    noBtn.style.transform = "none";
+  if (!noRunning) {
+    noRunning = true;
+    const r = noBtn.getBoundingClientRect();
+    noBtn.style.position = "fixed";
+    noBtn.style.left = r.left + "px";
+    noBtn.style.top = r.top + "px";
   }
 
-  // Hearts (different sizes, slow)
-  function createHeart() {
-    const h = document.createElement("div");
-    h.innerText = "❤️";
-    h.style.position = "fixed";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.bottom = "-30px";
-    h.style.fontSize = (Math.random() * 22 + 14) + "px";
-    h.style.animation = "floatUp 8s linear"; // half speed
-    h.style.zIndex = "1";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 8000);
+  const yesRect = yesBtn.getBoundingClientRect();
+  const pad = 40;
+  let x, y, safe = false;
+
+  while (!safe) {
+    x = Math.random() * (window.innerWidth - noBtn.offsetWidth - pad);
+    y = Math.random() * (window.innerHeight - noBtn.offsetHeight - pad);
+
+    const noRect = { left:x, right:x+noBtn.offsetWidth, top:y, bottom:y+noBtn.offsetHeight };
+
+    safe =
+      noRect.right < yesRect.left - pad ||
+      noRect.left > yesRect.right + pad ||
+      noRect.bottom < yesRect.top - pad ||
+      noRect.top > yesRect.bottom + pad;
   }
 
-  setInterval(createHeart, 1000);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+function createHeart() {
+  const h = document.createElement("div");
+  h.innerText = "❤️";
+  h.style.position = "fixed";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.bottom = "-30px";
+  h.style.fontSize = (Math.random() * 22 + 14) + "px";
+  h.style.animation = "floatUp 8s linear";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 8000);
+}
+
+setInterval(createHeart, 1000);
 </script>
 
 </body>
