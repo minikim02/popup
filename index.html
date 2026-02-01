@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <style>
+body {
+  text-align: center;
+  font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  line-height: 1.8;
+}
+</style>
+
   <title>❤️발렌타인 초대장❤️</title>
 </head>
 <body>
 
 <h1>발렌타인 초대장 - ❤️한민지❤️</h1>
+
+  <p id="countdown"></p>
+
+<script>
+const target = new Date("2026-02-14T00:00:00");
+setInterval(() => {
+  const now = new Date();
+  const diff = target - now;
+  const el = document.getElementById("countdown");
+
+  if (diff <= 0) {
+    el.innerText = "❤️ 오늘은 발렌타인 데이 ❤️";
+    return;
+  }
+
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  el.innerText = `발렌타인 데이까지 ${days}일 ❤️`;
+}, 1000);
+</script>
+
+
 
 <p>
 안녕하세요 민지님!<br>
@@ -45,6 +74,25 @@
 
 나의 발렌타인이 되어 줄래???
 </p>
+  
+<button onclick="sayYes()" style="font-size:20px; padding:10px 20px;">
+  YES 💖
+</button>
+  
+<style>
+button {
+  background: #ff5a8a;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+button:hover {
+  background: #ff2f6d;
+}
+</style>
+
+
 
 <iframe
   width="315"
@@ -58,20 +106,72 @@
 
 
 
-<script>
-const messages = [
-  "사랑해🥰",
-  "사랑한다고!!!😘",
-  "결혼하자!!!😍",
-  "왜캐 예뻐???🥹"
-];
-alert(messages[Math.floor(Math.random()*messages.length)]);
-</script>
+
+
 
 
 <script>
 alert("❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️사랑해❤️");
+alert("사랑한다고!!!😘")
+alert("왜캐 예뻐???🥹")
+alert("결혼하자!!!😍")
+  
 </script>
+
+  <script>
+function sayYes() {
+  alert("❤️ 위ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ❤️\n 사랑해ㅐㅐㅐㅐㅐㅐ");
+
+    document.getElementById("music").src =
+    "https://www.youtube.com/embed/Ep0D0LtHcAs" +
+    "?autoplay=1&start=103&loop=1&playlist=Ep0D0LtHcAs";
+
+  // 🎉 Confetti
+  for (let i = 0; i < 50; i++) {
+    const c = document.createElement("div");
+    c.innerText = "🎉";
+    c.style.position = "fixed";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.top = "-20px";
+    c.style.fontSize = "20px";
+    c.style.animation = "fall 2s linear";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 2000);
+  }
+
+  // ❤️ Floating hearts
+  for (let i = 0; i < 20; i++) {
+    const h = document.createElement("div");
+    h.innerText = "❤️";
+    h.style.position = "fixed";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.bottom = "-20px";
+    h.style.fontSize = "20px";
+    h.style.animation = "floatUp 4s linear";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 4000);
+  }
+}
+</script>
+
+<style>
+@keyframes fall {
+  to { transform: translateY(100vh); }
+}
+
+@keyframes floatUp {
+  to { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+  <iframe
+  id="music"
+  width="0"
+  height="0"
+  src=""
+  frameborder="0"
+  allow="autoplay">
+</iframe>
+
 
 </body>
 </html>
